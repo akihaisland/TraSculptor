@@ -1,0 +1,121 @@
+.matrix_box {
+    width: 98px;
+    height: 98px;
+    /* background-color: yellowgreen; */
+}
+.matrix_link_info {
+    width: 76px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: khaki; */
+}
+.matrix_flow_bars_box,
+.matrix_time_bars_box {
+    display: inline-block;
+    width: 30px;
+    height: 100%;
+    position: relative;
+    /* background-color: darkcyan; */
+}
+.matrix_flow_bars_box {
+    float: left;
+}
+.matrix_time_bars_box {
+    float: right;
+}
+
+.matrix_outer_bar {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.matrix_outer_bar.capacity_bar {
+    /* background-color: #9DD3A8; */
+    background-color: #66A4AC;
+}
+.matrix_outer_bar.traveltime_bar {
+    background-color: #D9D9F3;
+}
+.matrix_inner_bar {
+    width: 20px;
+    left: 5px;
+    right: 5px;
+    position: absolute;
+    bottom: 0;
+}
+.matrix_inner_bar.flow_bar {
+    /* background-color: #CEEFE4; */
+    background-color: #C2DDE4;
+}
+.matrix_inner_bar.fftt_bar {
+    background-color: #A696C8;
+}
+
+/* avg */
+.matrix_avg_bar {
+    background-color: #ffefad88;
+    height: 2px;
+    position: absolute;
+}
+.info_show_bar_txt {
+    height: 0;
+    width: 100%;
+    /* text-shadow: 0 0 5px #fff; */
+    /* text-shadow: -1px -1px 1px #fff, 1px -1px 1px #fff, -1px 1px 1px #fff, 1px 1px 1px #fff; */
+    text-shadow: -0.5px -0.5px 1px #fff, 0.5px -0.5px 1px #fff, -0.5px 0.5px 1px #fff, 0.5px 0.5px 1px #fff;
+    position: absolute;
+}
+.matrix_avg_bar.ratio_avg_bar {
+    width: 24px;
+    left: 3px;
+    right: 3px;
+}
+
+.matrix_avg_bar.ratio_avg_bar.outer_avg {
+    width: 100%;
+    left: 0;
+    right: 0;
+}
+.matrix_avg_bar.ratio_avg_bar.inner_avg {
+    width: 20px;
+    left: 5px;
+    right: 5px;
+}
+
+.matrix_avg_bar.outer_avg_bar {
+    width: 100%;
+}
+.matrix_avg_bar.inner_avg_bar {
+    width: 20px;
+    left: 5px;
+    right: 5px;
+}
+/* text */
+.matrix_outer_bar,
+.matrix_inner_bar,
+.matrix_avg_bar,
+.info_show_bar_txt {
+    writing-mode: vertical-lr;
+    display: flex;
+    /* align-content: center; */
+    align-items: center;
+    /* text-align: left; */
+    /* text-align: center; */
+    /* line-height: 100%; */
+    font-size: 8px;
+    color: #5a5a5a;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+/* hover content */
+.no_link_element {
+    display: none;
+}
+.hovering_matrix_element {
+    filter: brightness(1.5)
+}
+.unhover_matrix_element {
+    filter: brightness(0.8);
+}

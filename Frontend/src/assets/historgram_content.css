@@ -1,0 +1,216 @@
+.historgram_box {
+  width: 120px;
+  height: 112px;
+  background-color: #121212;
+
+  overflow: hidden;
+  user-select: none;
+}
+
+
+.historgram_box .title_box {
+  width: 100%;
+  height: 32px;
+  font-size: 10px;
+  color: #fbfbfb;
+
+  display: flex;
+  flex-direction: row;
+  justify-items: start;
+}
+
+.historgram_box .title_box .title_content {
+  display: inline-block;
+  width: calc(100% - 32px - 6px);
+  /* height: calc(100% - 6px); */
+  padding: 3px;
+  font-size: 10px;
+
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  /* align-items: center; */
+  /* justify-items: start; */
+  /* text-align: center; */
+}
+
+.historgram_box .title_box .title_btn_box {
+  display: inline-block;
+  /* width: calc(100% - 88px); */
+  padding-top: 2px;
+  width: 32px;
+  height: 100%;
+  height: calc(100% - 5px);
+
+  display: flex;
+  flex-direction: row;
+  /* align-items: center;
+    justify-items: center;
+    text-align: center; */
+}
+.historgram_box .title_box .title_btn_box .title_btn {
+  width: 12px;
+  height: 12px;
+  padding: 2px;
+}
+.historgram_box .title_box .title_btn_box .title_btn img {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.historgram_box .title_box .title_btn_box .title_btn:hover img {
+  background-color: #d9eddf55;
+  cursor: pointer;
+}
+
+
+.historgram_box .bars_box {
+  width: 100%;
+  height: calc(100% - 35px);
+}
+
+.historgram_box .bars_box .bars_content {
+  width: 100%;
+  height: 60px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+
+  position: relative;
+}
+.historgram_box .bars_box .bars_content .bar_content {
+  display: inline-block;
+  width: 8px;
+  height: 100%;
+  margin: 0;
+  margin-left: 2px;
+  margin-right: 2px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+.historgram_box .bars_box .bars_content .bar_content .upper_bar,
+.historgram_box .bars_box .bars_content .bar_content .lower_bar {
+  width: 8px;
+  transition: all 0.3s ease;
+  /* height: 20px; */
+}
+.historgram_box .bars_box .bars_content .bar_content .upper_bar {
+  background-color: #adc5cf;
+}
+.historgram_box .bars_box .bars_content .bar_content .lower_bar {
+  background-color: #3596b5;
+}
+
+.historgram_box .bars_box .bars_axis {
+  margin-left: 2px;
+  margin-right: 2px;
+  width: calc(100% - 4px);
+  height: 2px;
+  background-color: #d9eddf;
+
+  position: relative;
+}
+.bars_select_area {
+  height: 100%;
+  /* width: 24px; */
+  /* left: 9px; */
+  background-color: #62a188;
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+
+.historgram_box .bars_box .range_show_box {
+  margin-top: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% - 10px);
+  height: 15px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+.historgram_box .bars_box .range_show_box .lower_bound_val,
+.historgram_box .bars_box .range_show_box .upper_bound_val {
+  display: inline-block;
+  width: calc(50% - 1px);
+  height: 15px;
+  font-size: 10px;
+  color: aliceblue;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.historgram_box .bars_box .range_show_box .lower_bound_val {
+  text-align: left;
+}
+.historgram_box .bars_box .range_show_box .upper_bound_val {
+  text-align: right;
+}
+
+
+.historgram_box .bars_box .bars_content .select_bar_left,
+.historgram_box .bars_box .bars_content .select_bar_right {
+  position: absolute;
+  height: 100%;
+  width: 8px;
+
+  text-align: left;
+  justify-content: start;
+}
+.historgram_box .bars_box .bars_content .direction_instruction_box {
+  width: 6px;
+  height: 100%;
+  /* background-color: azure; */
+  float: left;
+}
+.historgram_box .bars_box .bars_content .select_bar_left .vertical_line,
+.historgram_box .bars_box .bars_content .select_bar_right .vertical_line {
+  height: 100%;
+  width: 2px;
+  background-color: #97d8bd;
+  /* margin: 0; */
+
+  display: inline-block;
+  float: left;
+  /* transform: translateX(-10px); */
+  cursor: ew-resize;
+}
+.historgram_box
+  .bars_box
+  .bars_content
+  .select_bar_left
+  .direction_instruction_box
+  .direction_instruction_left {
+  height: 0;
+  width: 0;
+  border: 6px solid transparent;
+  border-left: 6px solid #97d8bd;
+  float: left;
+
+  display: inline-block;
+  cursor: ew-resize;
+}
+.historgram_box
+  .bars_box
+  .bars_content
+  .select_bar_right
+  .direction_instruction_box
+  .direction_instruction_right {
+  height: 0;
+  width: 0;
+  border: 6px solid transparent;
+  border-right: 6px solid #97d8bd;
+  float: right;
+
+  display: inline-block;
+  cursor: ew-resize;
+}

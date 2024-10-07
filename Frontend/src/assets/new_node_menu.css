@@ -1,0 +1,155 @@
+/* new node */
+#new_node_menu {
+  position: absolute;
+  width: 425px;
+  border-radius: 5px;
+  background-color: #232323ee;
+  color: #fff;
+}
+#new_node_menu .menu_content {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+#new_node_menu .col_btn_box {
+  user-select: none;
+  width: 100px;
+}
+#new_node_menu .menu_input_part {
+  width: 85px;
+  padding: 5px;
+  height: 80px;
+  vertical-align: top;
+  background-color: #33333399;
+}
+#new_node_menu .menu_nodepos_input_part {
+  width: 120px;
+  padding: 5px;
+}
+#new_node_menu .menu_input_part .input_pair {
+  width: 100%;
+  /* margin-bottom: 1px; */
+}
+#new_node_menu .menu_input_part .input_pair .input_title {
+  text-align: left;
+  font-size: 10px;
+  /* height: 13px; */
+  width: 100%;
+  user-select: none;
+}
+#new_node_menu .menu_input_part .input_pair .input_box {
+  width: 100%;
+  height: 22px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* node position input */
+#new_node_menu .menu_input_part .input_pair .input_box .val_input_box.nodepos_range_box {
+  width: 100%;
+  height: 25px;
+  margin-bottom: 5px;
+}
+#new_node_menu .menu_input_part .input_pair .input_box .val_input_box.nodepos_input_pair_box {
+  width: 100%;
+  height: 20px;
+  margin: 0;
+}
+#new_node_menu
+  .menu_input_part
+  .input_pair
+  .input_box
+  .val_input_box.nodepos_input_pair_box
+  .nodepos_input_pair {
+  width: calc(50% - 2px);
+  /* margin: 2px; */
+  padding: 2px;
+}
+#new_node_menu
+  .menu_input_part
+  .input_pair
+  .input_box
+  .val_input_box.nodepos_input_pair_box
+  .nodepos_input_pair
+  .nodepos_input_title_box {
+  text-align: left;
+  font-size: 10px;
+  user-select: none;
+}
+
+/* common input */
+#new_node_menu .menu_input_part .input_pair .input_box .val_input_box {
+  width: 100%;
+  height: 20px;
+  margin: 0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+#new_node_menu .menu_input_part .input_pair .input_box .range_input_box {
+  /* display: inline-block; */
+  width: calc(100% - 2px);
+  height: 18px;
+
+  margin-top: 5px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: left;
+  /* background: linear-gradient(to right, rgb(30, 255, 30), rgb(255,255,30), rgb(255,30,30)); */
+  background: linear-gradient(to right, #4b95bc, #f3ebe9, #c56c4e);
+}
+#new_node_menu .menu_input_part .input_pair .input_box .val_input_box input {
+  font-size: 12px;
+  color: #fff;
+  width: calc(100% - 6px);
+  height: 16px;
+
+  margin: 0;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  outline: 0;
+  background-color: #00000000;
+}
+#new_node_menu .menu_input_part .input_pair .input_box .range_input_box .range_input_content {
+  display: inline-block;
+  margin: 0;
+  width: 20px;
+  height: 100%;
+  background-color: #121212aa;
+}
+
+/* range scorll position */
+#new_node_menu
+  .menu_input_part
+  .input_pair
+  .input_box
+  .val_input_box.nodepos_range_box
+  input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #fff;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+#new_node_menu
+  .menu_input_part
+  .input_pair
+  .input_box
+  .val_input_box.nodepos_range_box
+  input::-webkit-slider-thumb:hover {
+  box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.16);
+  transition: 0.3s ease-in-out;
+}

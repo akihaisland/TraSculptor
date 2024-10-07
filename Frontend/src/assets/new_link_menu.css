@@ -1,0 +1,116 @@
+#new_link_menu {
+  position: absolute;
+  /* padding: 5px; */
+  width: 230px;
+  border-radius: 5px;
+  background-color: #232323ee;
+  color: #fff;
+}
+#new_link_menu .menu_content {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+#new_link_menu .menu_content .col_btn_box {
+  user-select: none;
+  width: 50px;
+}
+#new_link_menu .menu_content .menu_input_part {
+  width: 168px;
+  padding: 5px;
+  vertical-align: top;
+}
+#new_link_menu .menu_content .menu_input_part .input_pair {
+  width: 100%;
+  height: 34px;
+  /* margin-bottom: 1px; */
+}
+#new_link_menu .menu_content .menu_input_part .input_pair .input_title {
+  text-align: left;
+  font-size: 10px;
+  height: 13px;
+  width: 100%;
+  user-select: none;
+}
+#new_link_menu .menu_content .menu_input_part .input_pair .input_box {
+  width: 100%;
+  /* width: 80px; */
+  height: 22px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+#new_link_menu .menu_content .menu_input_part .input_pair .input_box .val_input_box {
+  /* display: inline-block; */
+  /* width: 50%; */
+  width: 80px;
+  height: 20px;
+  margin: 0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+#new_link_menu .menu_content .menu_input_part .input_pair .input_box .range_input_box {
+  /* display: inline-block; */
+  width: 80px;
+  height: 18px;
+  margin-left: 5px;
+  text-align: left;
+
+  border: 1px solid #fff;
+  border-radius: 3px;
+  overflow: hidden;
+}
+#new_link_menu .menu_content .menu_input_part .input_pair .input_box .range_input_box.fftt_ipt {
+  /* background: linear-gradient(to right, rgb(30, 255, 30), rgb(255,255,30), rgb(255,30,30)); */
+  background: linear-gradient(to right, #4b95bc, #f3ebe9, #c56c4e);
+}
+#new_link_menu .menu_content .menu_input_part .input_pair .input_box .range_input_box.capacity_ipt {
+  /* background: linear-gradient(to right, rgb(255,30,30), rgb(255,255,30), rgb(30, 255, 30)); */
+  background: linear-gradient(to left, #2b957f, #fef6f4, #c45961);
+}
+#new_link_menu
+  .menu_content
+  .menu_input_part
+  .input_pair
+  .input_box
+  .range_input_box
+  .range_input_content {
+  display: inline-block;
+  margin: 0;
+  width: 20px;
+  height: 100%;
+  background-color: #121212aa;
+}
+
+#new_link_menu .menu_content .menu_input_part .input_pair .input_box .val_input_box input {
+  font-size: 12px;
+  color: #fff;
+  width: calc(100% - 6px);
+  height: 16px;
+
+  margin: 0;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  outline: 0;
+  background-color: #00000000;
+}
+
+#new_link_menu .menu_content .menu_input_division {
+  /* width: 20px; */
+  width: 100%;
+  padding: 5px;
+  font-size: 10px;
+  /* writing-mode: vertical-rl; */
+  /* text-orientation: upright; */
+}

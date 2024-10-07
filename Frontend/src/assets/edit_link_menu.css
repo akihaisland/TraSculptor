@@ -1,0 +1,94 @@
+.edit_link_menu {
+  position: absolute;
+  width: 150px;
+  border-radius: 5px;
+  background-color: #232323ee;
+  color: #fff;
+}
+.edit_link_menu .menu_content {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+.edit_link_menu .col_btn_box {
+  user-select: none;
+  width: 50px;
+}
+.edit_link_menu .menu_input_part {
+  width: 85px;
+  padding: 5px;
+  height: 80px;
+  vertical-align: top;
+}
+.edit_link_menu .menu_input_part .input_pair {
+  width: 100%;
+  /* margin-bottom: 1px; */
+}
+.edit_link_menu .menu_input_part .input_pair .input_title {
+  text-align: left;
+  font-size: 10px;
+  /* height: 13px; */
+  width: 100%;
+  user-select: none;
+}
+.edit_link_menu .menu_input_part .input_pair .input_box {
+  width: 100%;
+  height: 22px;
+  text-align: center;
+  margin-top: 5px;
+}
+.edit_link_menu .menu_input_part .input_pair .input_box .val_input_box {
+  width: 100%;
+  height: 20px;
+  margin: 0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+.edit_link_menu .menu_input_part .input_pair .input_box .range_input_box {
+  /* display: inline-block; */
+  width: calc(100% - 2px);
+  height: 18px;
+
+  margin-top: 5px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  /* background: linear-gradient(to right, green, white, red); */
+}
+#edit_link_speed_menu.edit_link_menu .menu_input_part .input_pair .input_box .range_input_box {
+  background: linear-gradient(to right, #4b95bc, #f3ebe9, #c56c4e);
+}
+#edit_link_capacity_menu.edit_link_menu .menu_input_part .input_pair .input_box .range_input_box {
+  background: linear-gradient(to left, #2b957f, #fef6f4, #c45961);
+  /* #2B957F, #FEF6F4, #C45961 */
+}
+.edit_link_menu .menu_input_part .input_pair .input_box .val_input_box input {
+  font-size: 12px;
+  color: #fff;
+  width: calc(100% - 6px);
+  height: 16px;
+
+  margin: 0;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  outline: 0;
+  background-color: #00000000;
+}
+.edit_link_menu .menu_input_part .input_pair .input_box .range_input_box .range_input_content {
+  display: inline-block;
+  margin: 0;
+  width: 20px;
+  height: 100%;
+  background-color: #121212aa;
+}
