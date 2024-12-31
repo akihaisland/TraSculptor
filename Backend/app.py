@@ -646,7 +646,8 @@ if __name__ == '__main__':
     # Initialize the Net 
     network = PyNetwork()
     # data_path = "mini_data" # mini batch data for case study
-    data_path = "data" # SiouxFalls dataset
+    # data_path = "data" # SiouxFalls dataset
+    data_path = "data_EasternMassachusetts"
 
     # Update the file paths to your data files
     network.read_node(f"{data_path}/Nodes.txt")
@@ -660,4 +661,5 @@ if __name__ == '__main__':
     _update_global_links_info()
 
     # Run backend
-    app.run(debug=True,port=8081)
+    # app.run(debug=True, port=8081)
+    app.run(port=8081)

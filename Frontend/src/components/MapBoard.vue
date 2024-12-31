@@ -1084,7 +1084,7 @@ function link_color_compute(std_val: number, linkOpacity: number) {
 function link_style(link_idx: number) {
   // 宽度
   let line_weight =
-    Math.pow(1.5, map_zoom_ratio.value - 12) * Math.abs(6 + 4 * link_flow_ratio[link_idx])
+    5*Math.pow(1.5, map_zoom_ratio.value - 12) * Math.abs(6 + 4 * link_flow_ratio[link_idx])
   if (link_flow_ratio[link_idx] == 2 || link_flow_ratio[link_idx] == -2) {
     line_weight = Math.pow(1.5, map_zoom_ratio.value - 12) * 6
   }
@@ -1129,7 +1129,7 @@ function link_style(link_idx: number) {
 }
 
 function draw_links_and_nodes() {
-  const circle_radius = Math.pow(1.5, map_zoom_ratio.value - 12)
+  const circle_radius = 2*Math.pow(1.5, map_zoom_ratio.value - 12)
 
   // transfer to polyline and node in lealfet
   const max_dot_flow_sum = Math.max(...dots_flow_sum)
@@ -1150,7 +1150,8 @@ function draw_links_and_nodes() {
     )
   }
 
-  const line_weight_mp = Math.pow(0.8, map_zoom_ratio.value - 12)
+  // const line_weight_mp = Math.pow(0.8, map_zoom_ratio.value - 12)
+  const line_weight_mp = 5*Math.pow(0.8, map_zoom_ratio.value - 12)
 
   for (let i = 0; i < links_pos.length; i++) {
     const now_line_weight = line_weight_mp * Math.abs(6 + 4 * link_flow_ratio[i])
@@ -1264,10 +1265,14 @@ function map_show() {
   }
 
   // init map
+  // var map = L.map('map').setView({lat: 42.34648, lng: 288.14898}, 9);
+  // map = L.map('map', {
+  //   doubleClickZoom: false
+  // }).setView([43.5528027552607, -96.74700008207309], 12)
   map = L.map('map', {
     doubleClickZoom: false
-  }).setView([43.5528027552607, -96.74700008207309], 12)
-  map.setMinZoom(12)
+  }).setView({lat: 42.34648, lng: 288.14898}, 12)
+  // map.setMinZoom(12)
   map.setMaxZoom(15)
 
   // add map layer
