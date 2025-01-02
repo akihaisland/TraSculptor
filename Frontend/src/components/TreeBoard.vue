@@ -888,7 +888,7 @@ function formatNumber(num: number): string {
   width: calc(100% - 2px);
   position: relative;
   vertical-align: bottom;
-  background-color: #aaa !important;
+  background-color: #ccc !important;
   /* vertical-align: bottom; */
 }
 

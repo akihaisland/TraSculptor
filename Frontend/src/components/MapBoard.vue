@@ -490,7 +490,7 @@ class PieNode extends L.Marker {
     // compute the size and style for the pie charts
     const svgString =
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">' +
-      '<circle cx="32" cy="32" r="32" fill="#8EA7FF" />' +
+      '<circle cx="32" cy="32" r="32" fill="#5CB338" />' +
       '<circle cx="32" cy="32" r="16" stroke-width="32" stroke-dasharray="' +
       100 * pie_ratio +
       ', 100" fill="transparent" stroke="#E89FF4"/>' +
