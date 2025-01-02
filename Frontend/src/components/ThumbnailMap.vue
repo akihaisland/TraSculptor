@@ -72,9 +72,9 @@ function link_style(link_idx: number, link_weight_mp: number) {
     linkOpacity = 0.8
   }
 
-  let line_color = 'rgba(159, 252, 253,' + linkOpacity + ')'
+  let line_color = 'rgba(10,94,176,' + linkOpacity + ')'
   return {
-    color: line_color, 
+    color: line_color,
     weight: line_weight
   }
 }
@@ -174,9 +174,9 @@ function map_show(map_idx: number) {
     dragging: false,
     touchZoom: false,
     doubleClickZoom: false,
-    scrollWheelZoom: false 
+    scrollWheelZoom: false
   }).setView([43.5528027552607, -96.74700008207309], 16)
-  var tiles = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+  var tiles = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
 
   var tileLayer = L.tileLayer(tiles, {
     attribution:

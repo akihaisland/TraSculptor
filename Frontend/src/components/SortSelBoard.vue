@@ -128,7 +128,7 @@ function handle_cond_push(e: DragEvent) {
   /* height: 100%; */
   height: 36px;
   padding: 2px;
-  background-color: #121212;
+  background-color: #3b3b3b;
   /* border-radius: 3px; */
 
   display: flex;

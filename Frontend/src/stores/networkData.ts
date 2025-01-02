@@ -139,7 +139,7 @@ export const useNetworksData = defineStore('networksInfo', {
     matrix_element_radius: 0,
 
     // link的颜色方案
-    link_color_plan_sel: 0,
+    link_color_plan_sel: 1,
     link_color_plans: [
       [
         [255, 33, 33],
@@ -405,7 +405,7 @@ export const useNetworksData = defineStore('networksInfo', {
               Math.floor(
                 ((links_info_arr[j][i] - bars_scope[j][0]) /
                   (bars_scope[j][1] - bars_scope[j][0])) *
-                  8
+                8
               ),
               7
             )
@@ -557,7 +557,7 @@ export const useNetworksData = defineStore('networksInfo', {
             state.per_tunnel_cost * network_edit_data.new_tunnel_num * state.per_tunnel_len +
             state.per_close_road_cost * network_edit_data.close_links_len) /
             1000) *
-            1000000
+          1000000
         )
       })
       return res
@@ -1329,7 +1329,7 @@ export const useNetworksData = defineStore('networksInfo', {
           )
           compared_links_speed.push(
             this.networksInfoArr[network_a_idx].links[a_idx].speed -
-              this.networksInfoArr[network_b_idx].links[b_idx].speed
+            this.networksInfoArr[network_b_idx].links[b_idx].speed
           )
         } else {
           compared_links_state.push(false)
@@ -1499,7 +1499,7 @@ export const useNetworksData = defineStore('networksInfo', {
             Math.floor(
               ((links_info_arr[i][link_idx] - this.historgram_data.graph_scope[i][0]) /
                 (this.historgram_data.graph_scope[i][1] - this.historgram_data.graph_scope[i][0])) *
-                8
+              8
             ),
             7
           )

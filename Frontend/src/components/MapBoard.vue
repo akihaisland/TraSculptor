@@ -9,7 +9,7 @@ import '@/assets/edit_link_menu.css'
 import '@/assets/new_node_menu.css'
 import { computed, onMounted, ref } from 'vue'
 import { watch } from 'vue'
-import { doSegmentsIntersect } from "@/stores/lineRelationship"
+import { doSegmentsIntersect } from '@/stores/lineRelationship'
 
 const networkData = useNetworksData()
 const networkSelData = useNetworkSel()
@@ -570,7 +570,7 @@ function draw_origin_demand_pie() {
     if (now_demand > max_demand) max_demand = now_demand
   }
 
-  // remove former pies on map 
+  // remove former pies on map
   rm_origin_demand_pie()
   const network_idx = networkSelData.last_sel_network_id
   // no roads selected
@@ -679,11 +679,19 @@ class SelectablePolyline extends L.Polyline {
     const network_idx = networkSelData.last_sel_network_id
     if (network_idx >= 0 && network_idx < networkData.networksInfoArr.length) {
       const now_link = networkData.networksInfoArr[network_idx].links[former_idxs[0]]
-      const tooltip_content = "Capacity: " + now_link.capacity.toFixed(2) +
-        "<br/>Travel Flow: " + now_link.flow.toFixed(2) +
-        "<br/>Free Flow Travel Time: " + now_link.freeFlowTravelTime.toFixed(2) +
-        "<br/>Travel Time: " + now_link.travelTime.toFixed(2)
-      this.bindTooltip(tooltip_content, { direction: 'top',  className: "path_tooltip"}).openTooltip()
+      const tooltip_content =
+        'Capacity: ' +
+        now_link.capacity.toFixed(2) +
+        '<br/>Travel Flow: ' +
+        now_link.flow.toFixed(2) +
+        '<br/>Free Flow Travel Time: ' +
+        now_link.freeFlowTravelTime.toFixed(2) +
+        '<br/>Travel Time: ' +
+        now_link.travelTime.toFixed(2)
+      this.bindTooltip(tooltip_content, {
+        direction: 'top',
+        className: 'path_tooltip'
+      }).openTooltip()
     }
     const _this = this
 
@@ -697,9 +705,9 @@ class SelectablePolyline extends L.Polyline {
       const nodes_in_link = this.getLatLngs()
       const pts = this.getLatLngs() as L.LatLng[]
       // nodes and length of the clicked roads
-      console.log("line pts: ", pts[0], pts[1]);
-      console.log("line length: ", pts[0].distanceTo(pts[1]), "m");
-      
+      console.log('line pts: ', pts[0], pts[1])
+      console.log('line length: ', pts[0].distanceTo(pts[1]), 'm')
+
       // determine whether it is a single click or a double click
       if (e.originalEvent.detail == 1) {
         // set road info
@@ -1064,19 +1072,22 @@ function link_color_compute(std_val: number, linkOpacity: number) {
   now_color_plan = networkData.link_color_plans[networkData.link_color_plan_sel]
   // else now_color_plan = networkData.personalize_color_plan
 
-  let color_seg_idx = Math.floor(std_val*(now_color_plan.length-1))
-  if (color_seg_idx >= now_color_plan.length-1) color_seg_idx = now_color_plan.length-2
-  else if (color_seg_idx<0) color_seg_idx = 0
+  let color_seg_idx = Math.floor(std_val * (now_color_plan.length - 1))
+  if (color_seg_idx >= now_color_plan.length - 1) color_seg_idx = now_color_plan.length - 2
+  else if (color_seg_idx < 0) color_seg_idx = 0
   // console.log("color_seg_idx ", color_seg_idx);
 
-  let color_seg_std_val = std_val*(now_color_plan.length-1) - color_seg_idx
+  let color_seg_std_val = std_val * (now_color_plan.length - 1) - color_seg_idx
   if (color_seg_std_val < 0) color_seg_std_val = 0
   else if (color_seg_std_val > 1) color_seg_std_val = 1
 
   const res_arr = []
-  for (let i=0; i<3; i++) {
-    res_arr.push(now_color_plan[color_seg_idx][i] + 
-      (now_color_plan[color_seg_idx+1][i]-now_color_plan[color_seg_idx][i]) * color_seg_std_val)
+  for (let i = 0; i < 3; i++) {
+    res_arr.push(
+      now_color_plan[color_seg_idx][i] +
+        (now_color_plan[color_seg_idx + 1][i] - now_color_plan[color_seg_idx][i]) *
+          color_seg_std_val
+    )
   }
   return `rgba(${res_arr[0]}, ${res_arr[1]}, ${res_arr[2]}, ${linkOpacity})`
 }
@@ -1089,19 +1100,19 @@ function link_style(link_idx: number) {
     line_weight = Math.pow(1.5, map_zoom_ratio.value - 12) * 6
   }
   // 透明度
-  let linkOpacity = 0.5
+  let linkOpacity = 0.7
   if (menu_show.value != 6) {
     if (link_clicked.value != -1) {
       if (link_clicked.value == link_idx) {
-        if (menu_show.value == 3 || menu_show.value == 4) linkOpacity = 0.5
-        else linkOpacity = 0.8
-      } else linkOpacity = 0.2
+        if (menu_show.value == 3 || menu_show.value == 4) linkOpacity = 0.7
+        else linkOpacity = 1
+      } else linkOpacity = 0.4
     }
   } else {
     // 当到展示饼图的模式时
     if (links_if_in_show_demand.value[link_idx]) {
-      linkOpacity = 0.8
-    } else linkOpacity = 0.2
+      linkOpacity = 1
+    } else linkOpacity = 0.4
   }
 
   let line_color = 'rgba('
@@ -1116,10 +1127,9 @@ function link_style(link_idx: number) {
   } else if (link_flow_ratio[link_idx] == -2) {
     line_color = 'rgba(195,195,195,' + linkOpacity + ')'
   } else {
-    line_color =  link_color_compute(link_speed_ratio[link_idx]/2+0.5, linkOpacity)
+    line_color = link_color_compute(link_speed_ratio[link_idx] / 2 + 0.5, linkOpacity)
   }
   // console.log("link_speed_ratio[link_idx] ", link_speed_ratio[link_idx]);
-  
 
   return {
     color: line_color, //线的颜色
@@ -1144,7 +1154,7 @@ function draw_links_and_nodes() {
         radius: now_circle_radius_mp * circle_radius,
         weight: circle_radius / 2 + 2,
         color: nodeColor,
-        fillColor: '#B7B7B7',
+        fillColor: '#fff',
         fillOpacity: 1
       })
     )
@@ -1172,7 +1182,7 @@ function draw_links_and_nodes() {
   drawLinesAndDots()
 }
 
-// listen to changes in the network 
+// listen to changes in the network
 watch(
   () => networkSelData.networks_show,
   (newValue: number[], oldValue: number[]) => {
@@ -1237,8 +1247,7 @@ watch(
           link_speed_ratio.push(0)
         }
       }
-    }
-    else {
+    } else {
       return
     }
 
@@ -1271,7 +1280,7 @@ function map_show() {
   map.setMaxZoom(15)
 
   // add map layer
-  var tiles = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+  var tiles = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
 
   var tileLayer = L.tileLayer(tiles, {
     attribution:
@@ -1807,7 +1816,7 @@ async function commit_link_del() {
 
 // new node
 const click_new_node_btn = () => {
-  // init info 
+  // init info
   lineEditData.isBidirection = true
   lineEditData.isAttach = true
   lineEditData.newNodePos = 0.5
@@ -1853,7 +1862,7 @@ watch(
   () => lineEditData.newNodeLat,
   (newValue: number) => {
     if (menu_show.value == 5) {
-      // node info 
+      // node info
       const network_idx = networkSelData.last_sel_network_id
       const now_link = networkData.networksInfoArr[network_idx].links[link_clicked.value]
       const Node1 = networkData.networksInfoArr[network_idx].nodes[now_link.pInNode]
@@ -2001,7 +2010,7 @@ async function commit_node_new() {
   let networkIdx = networkSelData.last_sel_network_id
   networkIdx = await networkData.networkDuplicate(networkIdx)
 
-  // request info 
+  // request info
   const nodeLat = lineEditData.newNodeLat
   const nodeLng = lineEditData.newNodeLng
   const formerLinkA = link_clicked.value
@@ -2154,105 +2163,136 @@ watch(
 )
 
 // compute road length
-watch(() => networkData.networksInfoArr, () => {
-  const networks_edit_detail = [{edit_links_len:0, close_links_len:0, new_tunnel_num:0}] as networkEditNumber[]
-  // networkData.networksInfoArr.forEach((network_info) => {
+watch(
+  () => networkData.networksInfoArr,
+  () => {
+    const networks_edit_detail = [
+      { edit_links_len: 0, close_links_len: 0, new_tunnel_num: 0 }
+    ] as networkEditNumber[]
+    // networkData.networksInfoArr.forEach((network_info) => {
 
-  // })
-  const global2link_idx = [] as number[][]
-  for (let i=0; i<networkData.networksInfoArr.length; i+=1) {
-    const tmp = [] as number[]
-    for (let j=0; j<networkData.links_if_sel.length; j+=1) {
-      tmp.push(-1)
+    // })
+    const global2link_idx = [] as number[][]
+    for (let i = 0; i < networkData.networksInfoArr.length; i += 1) {
+      const tmp = [] as number[]
+      for (let j = 0; j < networkData.links_if_sel.length; j += 1) {
+        tmp.push(-1)
+      }
+      global2link_idx.push(tmp)
     }
-    global2link_idx.push(tmp)
-  }
-  for (let i=0; i<networkData.networksInfoArr.length; i+=1) {
-    for (let j=0; j<networkData.networksInfoArr[i].links.length; j+=1) {
-      const link_gidx = networkData.networksInfoArr[i].links[j].globalId
-      global2link_idx[i][link_gidx] = j
+    for (let i = 0; i < networkData.networksInfoArr.length; i += 1) {
+      for (let j = 0; j < networkData.networksInfoArr[i].links.length; j += 1) {
+        const link_gidx = networkData.networksInfoArr[i].links[j].globalId
+        global2link_idx[i][link_gidx] = j
+      }
     }
-  }
 
-  for (let i=1; i<networkData.networksInfoArr.length; i+=1) {
-    const father_net_idx = networkData.networksFatherIdx[i]
-    const father_network = networkData.networksInfoArr[father_net_idx]
-    const now_network = networkData.networksInfoArr[i]
-    const now_edit_detail = {edit_links_len:networks_edit_detail[father_net_idx].edit_links_len, 
-      close_links_len:networks_edit_detail[father_net_idx].close_links_len,
-      new_tunnel_num:networks_edit_detail[father_net_idx].new_tunnel_num}
-    
-    // record the road that edited to prevent recompute two-way road
-    const now_nodes_linked = [] as boolean[][]
-    now_network.nodes.forEach(() => {
-      const tmp = [] as boolean[]
+    for (let i = 1; i < networkData.networksInfoArr.length; i += 1) {
+      const father_net_idx = networkData.networksFatherIdx[i]
+      const father_network = networkData.networksInfoArr[father_net_idx]
+      const now_network = networkData.networksInfoArr[i]
+      const now_edit_detail = {
+        edit_links_len: networks_edit_detail[father_net_idx].edit_links_len,
+        close_links_len: networks_edit_detail[father_net_idx].close_links_len,
+        new_tunnel_num: networks_edit_detail[father_net_idx].new_tunnel_num
+      }
+
+      // record the road that edited to prevent recompute two-way road
+      const now_nodes_linked = [] as boolean[][]
       now_network.nodes.forEach(() => {
-        tmp.push(false)
+        const tmp = [] as boolean[]
+        now_network.nodes.forEach(() => {
+          tmp.push(false)
+        })
+        now_nodes_linked.push(tmp)
       })
-      now_nodes_linked.push(tmp)
-    })
-    for (let j=0; j<now_network.links.length; j+=1) {
-      const link_data = networkData.networksInfoArr[i].links[j]
-      if (now_nodes_linked[link_data.pInNode][link_data.pOutNode]) {
-        continue
-      }
+      for (let j = 0; j < now_network.links.length; j += 1) {
+        const link_data = networkData.networksInfoArr[i].links[j]
+        if (now_nodes_linked[link_data.pInNode][link_data.pOutNode]) {
+          continue
+        }
 
-      const latlng = L.latLng(now_network.nodes[link_data.pInNode].lat, now_network.nodes[link_data.pInNode].lon);
-      const latlng2 = L.latLng(now_network.nodes[link_data.pOutNode].lat, now_network.nodes[link_data.pOutNode].lon);
-      const distance = latlng.distanceTo(latlng2);
-      if (global2link_idx[father_net_idx][link_data.globalId] == -1) {
-        // compute length of new road: meters
-        now_edit_detail.edit_links_len += distance
-        // check new tunnels to build
-        let tunnels_num = 0
-        const father_nodes_linked = [] as boolean[][]
-        father_network.nodes.forEach(() => {
-          const tmp = [] as boolean[]
-          father_network.nodes.forEach(() => {
-            tmp.push(false)
-          })
-          father_nodes_linked.push(tmp)
-        })
-        father_network.links.forEach((other_link_data) => {
-          if (other_link_data.globalId != link_data.globalId) {
-            if (
-              (!father_nodes_linked[other_link_data.pInNode][other_link_data.pOutNode]) &&  
-              doSegmentsIntersect(
-                now_network.nodes[link_data.pInNode],now_network.nodes[link_data.pOutNode],
-                father_network.nodes[other_link_data.pInNode],father_network.nodes[other_link_data.pOutNode]
-            )) {
-              console.log(father_nodes_linked[other_link_data.pInNode][other_link_data.pOutNode]);
-              tunnels_num += 1
-              father_nodes_linked[other_link_data.pInNode][other_link_data.pOutNode] = true
-              father_nodes_linked[other_link_data.pOutNode][other_link_data.pInNode] = true
-              console.log(father_nodes_linked[other_link_data.pInNode][other_link_data.pOutNode], other_link_data.globalId);
-              
-            }
-          }
-        })
-        now_edit_detail.new_tunnel_num += tunnels_num
-      } else {
-        const father_link = networkData.networksInfoArr[father_net_idx].links[global2link_idx[father_net_idx][link_data.globalId]]
-        if (father_link.capacity != link_data.capacity || father_link.freeFlowTravelTime != link_data.freeFlowTravelTime) {
+        const latlng = L.latLng(
+          now_network.nodes[link_data.pInNode].lat,
+          now_network.nodes[link_data.pInNode].lon
+        )
+        const latlng2 = L.latLng(
+          now_network.nodes[link_data.pOutNode].lat,
+          now_network.nodes[link_data.pOutNode].lon
+        )
+        const distance = latlng.distanceTo(latlng2)
+        if (global2link_idx[father_net_idx][link_data.globalId] == -1) {
+          // compute length of new road: meters
           now_edit_detail.edit_links_len += distance
-        } else continue
+          // check new tunnels to build
+          let tunnels_num = 0
+          const father_nodes_linked = [] as boolean[][]
+          father_network.nodes.forEach(() => {
+            const tmp = [] as boolean[]
+            father_network.nodes.forEach(() => {
+              tmp.push(false)
+            })
+            father_nodes_linked.push(tmp)
+          })
+          father_network.links.forEach((other_link_data) => {
+            if (other_link_data.globalId != link_data.globalId) {
+              if (
+                !father_nodes_linked[other_link_data.pInNode][other_link_data.pOutNode] &&
+                doSegmentsIntersect(
+                  now_network.nodes[link_data.pInNode],
+                  now_network.nodes[link_data.pOutNode],
+                  father_network.nodes[other_link_data.pInNode],
+                  father_network.nodes[other_link_data.pOutNode]
+                )
+              ) {
+                console.log(father_nodes_linked[other_link_data.pInNode][other_link_data.pOutNode])
+                tunnels_num += 1
+                father_nodes_linked[other_link_data.pInNode][other_link_data.pOutNode] = true
+                father_nodes_linked[other_link_data.pOutNode][other_link_data.pInNode] = true
+                console.log(
+                  father_nodes_linked[other_link_data.pInNode][other_link_data.pOutNode],
+                  other_link_data.globalId
+                )
+              }
+            }
+          })
+          now_edit_detail.new_tunnel_num += tunnels_num
+        } else {
+          const father_link =
+            networkData.networksInfoArr[father_net_idx].links[
+              global2link_idx[father_net_idx][link_data.globalId]
+            ]
+          if (
+            father_link.capacity != link_data.capacity ||
+            father_link.freeFlowTravelTime != link_data.freeFlowTravelTime
+          ) {
+            now_edit_detail.edit_links_len += distance
+          } else continue
+        }
+        now_nodes_linked[link_data.pInNode][link_data.pOutNode] = true
+        now_nodes_linked[link_data.pOutNode][link_data.pInNode] = true
       }
-      now_nodes_linked[link_data.pInNode][link_data.pOutNode] = true
-      now_nodes_linked[link_data.pOutNode][link_data.pInNode] = true
-    }
-    for (let j=0; j<father_network.links.length; j+=1) {
-      const link_data = father_network.links[j]
-      if (global2link_idx[i][link_data.globalId] == -1) {
-        const latlng = L.latLng(now_network.nodes[link_data.pInNode].lat, now_network.nodes[link_data.pInNode].lon);
-        const latlng2 = L.latLng(now_network.nodes[link_data.pOutNode].lat, now_network.nodes[link_data.pOutNode].lon);
-        const distance = latlng.distanceTo(latlng2);
-        now_edit_detail.close_links_len += distance
+      for (let j = 0; j < father_network.links.length; j += 1) {
+        const link_data = father_network.links[j]
+        if (global2link_idx[i][link_data.globalId] == -1) {
+          const latlng = L.latLng(
+            now_network.nodes[link_data.pInNode].lat,
+            now_network.nodes[link_data.pInNode].lon
+          )
+          const latlng2 = L.latLng(
+            now_network.nodes[link_data.pOutNode].lat,
+            now_network.nodes[link_data.pOutNode].lon
+          )
+          const distance = latlng.distanceTo(latlng2)
+          now_edit_detail.close_links_len += distance
+        }
       }
+      networks_edit_detail.push(now_edit_detail)
     }
-    networks_edit_detail.push(now_edit_detail)
-  }
-  networkData.networksEditQuantity = networks_edit_detail
-}, {deep: true})
+    networkData.networksEditQuantity = networks_edit_detail
+  },
+  { deep: true }
+)
 </script>
 <template>
   <div class="main_board" id="map_area">
@@ -2735,5 +2775,5 @@ watch(() => networkData.networksInfoArr, () => {
   /* color: black; */
   /* width: 300px; */
   text-align: left;
-} 
+}
 </style>

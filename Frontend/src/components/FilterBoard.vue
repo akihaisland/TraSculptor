@@ -57,6 +57,7 @@ const hist_graphs_id = [6, 7, 0, 1, 2, 3, 4, 5]
   margin: auto;
   /* padding: 2px; */
   border-radius: 3px;
+  /* border: 1px solid #dfdfdf; */
 }
 
 .sort_conds_block {
