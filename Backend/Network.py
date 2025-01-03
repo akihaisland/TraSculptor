@@ -2,6 +2,7 @@ import math
 import time
 import os
 import numpy as np
+import tqdm
 
 class PyNode:
     """
@@ -329,13 +330,19 @@ class PyNetwork:
         paths_len = [0]
         now_pos = 0
         min_path_len = float('inf')
+
+        max_path = 20
         while now_pos < len(former_nodes_tree):
             # If the current node is the endpoint
             now_node_id = former_nodes_tree[now_pos]
             if now_node_id == end:
+                # print("end")
                 end_paths_idx.append(now_pos)
                 if paths_len[now_pos] < min_path_len:
                     min_path_len = paths_len[now_pos]
+
+                if len(end_paths_idx) > max_path:
+                    break
             elif len(end_paths_idx) > 0 and paths_len[now_pos] > 2*min_path_len:
                 now_pos += 1
                 continue
@@ -366,7 +373,7 @@ class PyNetwork:
         self.m_n_path = 0
         num_in_b = 0
 
-        for od_pair in self.m_od_pairs:
+        for od_pair in tqdm.tqdm(self.m_od_pairs, desc="compute path"):
             start_node_id = od_pair.p_od_node[0]
             end_node_id = od_pair.p_od_node[1]
             former_nodes_tree, from_links_tree, from_idxs_in_tree, end_paths_idx, paths_len =\
@@ -692,7 +699,10 @@ class PyNetwork:
         CPUTime = start_time - begtime
 
         with open(self.output_path, 'w') as tw:
+            iter_num = 0
             while NormD > self.max_ue_gap:
+                print(f"iter{iter_num}: {NormD}")
+                iter_num += 1
 
                 last_now_time = nowtime
                 nowtime = time.time()
