@@ -646,7 +646,8 @@ if __name__ == '__main__':
     # Initialize the Net 
     network = PyNetwork()
     # data_path = "mini_data" # mini batch data for case study
-    data_path = "data" # SiouxFalls dataset
+    # data_path = "data" # SiouxFalls dataset
+    data_path = "ema_data" # ema dataset
 
     # Update the file paths to your data files
     network.read_node(f"{data_path}/Nodes.txt")

@@ -2355,10 +2355,10 @@ watch(
       </div>
       <div class="state_box" :class="{ not_show_container: menu_show_state != 1 }">
         <div class="edit_btn" title="Cancel">
-          <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+          <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
         </div>
         <div class="edit_btn" title="Save">
-          <img src="/static/edits_btn/save.svg" alt="" srcset="" />
+          <img src="/static/edits_btn/save-white.svg" alt="" srcset="" />
         </div>
       </div>
     </div>
@@ -2372,10 +2372,10 @@ watch(
       <div class="menu_content">
         <div class="col_btn_box">
           <div class="edit_btn" title="Cancel" @click="handleCancelNewLink()">
-            <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
           </div>
           <div class="edit_btn" title="Save" @click="save_new_road()">
-            <img src="/static/edits_btn/save.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/save-white.svg" alt="" srcset="" />
           </div>
           <div
             class="edit_btn"
@@ -2491,10 +2491,10 @@ watch(
       <div class="menu_content">
         <div class="col_btn_box">
           <div class="edit_btn" title="Cancel" @click="show_menu_from_idx(1)">
-            <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
           </div>
           <div class="edit_btn" title="Save" @click="commit_link_edit(0)">
-            <img src="static/edits_btn/save.svg" alt="" srcset="" />
+            <img src="static/edits_btn/save-white.svg" alt="" srcset="" />
           </div>
         </div>
         <div class="menu_input_part">
@@ -2530,10 +2530,10 @@ watch(
       <div class="menu_content">
         <div class="col_btn_box">
           <div class="edit_btn" title="Cancel" @click="show_menu_from_idx(1)">
-            <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
           </div>
           <div class="edit_btn" title="Save" @click="commit_link_edit(1)">
-            <img src="/static/edits_btn/save.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/save-white.svg" alt="" srcset="" />
           </div>
         </div>
         <div class="menu_input_part">
@@ -2572,7 +2572,7 @@ watch(
       <div class="menu_content">
         <div class="col_btn_box">
           <div class="edit_btn" title="Cancel" @click="handleCancelNewNode(undefined)">
-            <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
           </div>
           <div
             class="edit_btn"
@@ -2582,7 +2582,7 @@ watch(
             <img :src="switch_way_num_btn" alt="" srcset="" />
           </div>
           <div class="edit_btn" title="Save" @click="commit_node_new">
-            <img src="/static/edits_btn/save.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/save-white.svg" alt="" srcset="" />
           </div>
           <div
             class="edit_btn"
@@ -2738,7 +2738,7 @@ watch(
   width: 100px;
   height: 50px;
   border-radius: 5px;
-  background-color: #232323ee;
+  background-color: #9f9f9fee;
   box-shadow: 0 0 2px #aaa;
 }
 #link_menu.state1 {
