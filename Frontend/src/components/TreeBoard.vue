@@ -54,9 +54,9 @@ const bg_color_transition_arr = computed(() => {
   // else now_color_plan = networkData.personalize_bg_color_plan
 
   const res = [] as rgbColorObj[]
-  for (let i = now_color_plan.length-1; i>=0; i-=1) {
+  for (let i = now_color_plan.length - 1; i >= 0; i -= 1) {
     const color_node = now_color_plan[i]
-    res.push({r: color_node[0], g: color_node[1], b: color_node[2], a: 1})
+    res.push({ r: color_node[0], g: color_node[1], b: color_node[2], a: 1 })
   }
 
   return res
@@ -122,7 +122,7 @@ function rgb_color_transition(
   )
 }
 
-// network info 
+// network info
 const networkData = useNetworksData()
 const networkSel = useNetworkSel()
 const lineEditData = useLineEdit()
@@ -185,15 +185,16 @@ const nodes_styles_in_tree = computed(() => {
 
     const bgcolorMid = 0
     const bgcolorRadius = networkData.matrix_element_radius
-    const network_node_bgc_val = networkData.networksInfoArr[i].costSum/networkData.networksInfoArr[0].costSum-1
+    const network_node_bgc_val =
+      networkData.networksInfoArr[i].costSum / networkData.networksInfoArr[0].costSum - 1
     const nodebg_Color_obj = rgb_color_obj_transition(
       bgcolorMid - bgcolorRadius,
       bgcolorRadius + bgcolorMid,
       network_node_bgc_val,
       bg_color_transition_arr.value
     )
-    
-    const nodeBGColor = 'rgba(255, 255, 255, 0.4)'
+
+    const nodeBGColor = 'rgba(127, 127, 127, 0.4)'
 
     res.push({
       left:
@@ -212,34 +213,53 @@ const nodes_styles_in_tree = computed(() => {
 
 // arrow position
 const end_skewing = 5
-const half_arrow_angle = Math.PI/10
+const half_arrow_angle = Math.PI / 10
 const tria_edge_len = 15
 const link_border_width = 3
-function link_arrow_pos(x1:number, y1:number, x2:number, y2:number,
-  end_skewing: number, half_arrow_angle: number, tria_edge_len: number) {
+function link_arrow_pos(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  end_skewing: number,
+  half_arrow_angle: number,
+  tria_edge_len: number
+) {
   let former_angle = 0
   if (x1 == x2) {
     if (y1 > y2) {
-      former_angle = Math.PI/2
-    } else former_angle = -Math.PI/2
+      former_angle = Math.PI / 2
+    } else former_angle = -Math.PI / 2
   } else {
     if (x2 > x1) {
-      former_angle = Math.atan((y2-y1)/(x2-x1))+Math.PI
-    } else former_angle = Math.atan((y2-y1)/(x2-x1))
+      former_angle = Math.atan((y2 - y1) / (x2 - x1)) + Math.PI
+    } else former_angle = Math.atan((y2 - y1) / (x2 - x1))
   }
-  
-  const former_link_len = Math.sqrt(Math.pow(x2-x1, 2)+Math.pow(y2-y1, 2))
-  const end_x = x2 + (x1-x2)/former_link_len*end_skewing
-  const end_y = y2 + (y1-y2)/former_link_len*end_skewing
-  
-  const arrow_n1x = end_x+Math.cos(former_angle-half_arrow_angle)*tria_edge_len
-  const arrow_n2x = end_x+Math.cos(former_angle+half_arrow_angle)*tria_edge_len
-  const arrow_n1y = end_y+Math.sin(former_angle-half_arrow_angle)*tria_edge_len
-  const arrow_n2y = end_y+Math.sin(former_angle+half_arrow_angle)*tria_edge_len
+
+  const former_link_len = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+  const end_x = x2 + ((x1 - x2) / former_link_len) * end_skewing
+  const end_y = y2 + ((y1 - y2) / former_link_len) * end_skewing
+
+  const arrow_n1x = end_x + Math.cos(former_angle - half_arrow_angle) * tria_edge_len
+  const arrow_n2x = end_x + Math.cos(former_angle + half_arrow_angle) * tria_edge_len
+  const arrow_n1y = end_y + Math.sin(former_angle - half_arrow_angle) * tria_edge_len
+  const arrow_n2y = end_y + Math.sin(former_angle + half_arrow_angle) * tria_edge_len
   return {
     end_x: end_x,
     end_y: end_y,
-    d: "M" + arrow_n1x + " " + arrow_n1y + " L" + end_x + " " + end_y + " L" + arrow_n2x + " " + arrow_n2y
+    d:
+      'M' +
+      arrow_n1x +
+      ' ' +
+      arrow_n1y +
+      ' L' +
+      end_x +
+      ' ' +
+      end_y +
+      ' L' +
+      arrow_n2x +
+      ' ' +
+      arrow_n2y
   }
 }
 // linked lines positon
@@ -270,15 +290,22 @@ const links_styles_in_tree = computed(() => {
       colorVal,
       bg_color_transition_arr.value
     )
-    const now_arrow_info = link_arrow_pos(start_pos[0], start_pos[1],
-      end_pos[0], end_pos[1], end_skewing, half_arrow_angle, tria_edge_len)
+    const now_arrow_info = link_arrow_pos(
+      start_pos[0],
+      start_pos[1],
+      end_pos[0],
+      end_pos[1],
+      end_skewing,
+      half_arrow_angle,
+      tria_edge_len
+    )
     res.push({
       start: start_pos,
       end: [now_arrow_info.end_x, now_arrow_info.end_y],
       border_width: link_border_width,
       dash: false,
       color: nodeColor,
-      arrow_d: now_arrow_info.d,
+      arrow_d: now_arrow_info.d
     })
   }
   return res
@@ -380,14 +407,17 @@ async function del_network_node_recursion(e: MouseEvent, network_idx: number) {
 
 function get_network_state(network_idx: number) {
   if (network_idx <= 0 || network_idx >= networkData.networksInfoArr.length) {
-    return ""
+    return ''
   }
-  let diff = (networkData.networksInfoArr[network_idx].costSum/networkData.networksInfoArr[0].costSum)*100-100
-  let mark = ""
+  let diff =
+    (networkData.networksInfoArr[network_idx].costSum / networkData.networksInfoArr[0].costSum) *
+      100 -
+    100
+  let mark = ''
   if (diff < 0) {
     diff = -diff
   }
-  return diff.toFixed(1) + "%"
+  return diff.toFixed(1) + '%'
 }
 
 // specific link info in a specific network
@@ -504,8 +534,8 @@ function handleMouseMove(e: MouseEvent) {
   if (e.buttons == 1) {
     e.preventDefault()
 
-    matrix_block_left.value += (e.clientX - matrix_move_start[0])/(zoomRat.value/100)
-    matrix_block_top.value += (e.clientY - matrix_move_start[1])/(zoomRat.value/100)
+    matrix_block_left.value += (e.clientX - matrix_move_start[0]) / (zoomRat.value / 100)
+    matrix_block_top.value += (e.clientY - matrix_move_start[1]) / (zoomRat.value / 100)
     matrix_move_start = [e.clientX, e.clientY]
   }
 }
@@ -531,14 +561,13 @@ function shift_link_alt_to_top(link_global_id: number) {
 
 function formatNumber(num: number): string {
   if (num >= 1000000000) {
-    return `${(num / 1000000000).toFixed(2)} B`;
+    return `${(num / 1000000000).toFixed(2)} B`
   } else if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(2)} M`;
+    return `${(num / 1000000).toFixed(2)} M`
   } else {
-    return num.toString();
+    return num.toString()
   }
 }
-
 </script>
 <template>
   <div class="main_board">
@@ -551,11 +580,12 @@ function formatNumber(num: number): string {
       @wheel="handleWheel"
       @mousemove="handleMouseMove"
     >
-      <div class="matrix_block_outer_box"
-          :style="{
-            width: svg_shape.width + svg_left + 'px',
-            transform: `scale(${zoomRat / 100})`
-          }"
+      <div
+        class="matrix_block_outer_box"
+        :style="{
+          width: svg_shape.width + svg_left + 'px',
+          transform: `scale(${zoomRat / 100})`
+        }"
       >
         <div
           class="matrix_block"
@@ -607,7 +637,7 @@ function formatNumber(num: number): string {
                 <div class="state_digital_info">
                   {{ get_network_state(network_idx) }}
                 </div>
-                <div class="cost_box" v-show="network_idx>0">
+                <div class="cost_box" v-show="network_idx > 0">
                   <!-- ${{ formatNumber(test_cont[network_idx]) }} -->
                   ${{ formatNumber(networkData.networks_edit_cost[network_idx]) }}
                 </div>
@@ -658,7 +688,7 @@ function formatNumber(num: number): string {
               v-for="(network_flow_info, network_idx) in networkData.sel_links_networks_idx"
               :key="network_idx"
               :style="{
-                width: node_space_width + 'px',
+                width: node_space_width + 'px'
                 // backgroundColor: nodes_styles_in_tree[network_idx].bgcolor
               }"
             >
@@ -668,7 +698,10 @@ function formatNumber(num: number): string {
                 :key="link_show_idx"
                 @click="get_network_info(network_idx, link_show_idx)"
               >
-                <MatrixGraph :network_idx="network_idx" :show_link_idx="link_show_idx"></MatrixGraph>
+                <MatrixGraph
+                  :network_idx="network_idx"
+                  :show_link_idx="link_show_idx"
+                ></MatrixGraph>
               </div>
             </div>
             <!-- <div class="matrix_col links_alt_top_btns_box">
@@ -707,7 +740,11 @@ function formatNumber(num: number): string {
               v-for="(line_style, line_idx) in links_styles_in_tree"
               :key="line_idx"
               :d="line_style.arrow_d"
-              :style="{ stroke: line_style.color, strokeWidth: line_style.border_width, fill: 'transparent'}"
+              :style="{
+                stroke: line_style.color,
+                strokeWidth: line_style.border_width,
+                fill: 'transparent'
+              }"
             />
             <rect
               v-for="(node_pos, node_idx) in nodes_styles_in_tree"
@@ -771,12 +808,12 @@ function formatNumber(num: number): string {
   width: calc(100% - 18px);
   height: calc(100% - 18px);
   /* border-radius: 3px; */
-  background-color: #121212;
+  background-color: #dfdfdf;
   overflow: hidden;
 
   z-index: 3;
 
-  position: relative
+  position: relative;
 }
 .matrix_block_outer_box {
   position: absolute;
@@ -839,28 +876,29 @@ function formatNumber(num: number): string {
   user-select: none;
   /* text-orientation: upright; */
   border: 2px solid transparent;
+  color: #121212;
 }
 .matrix_element_with_border,
 .matrix_deck_element {
-  border: 2px solid #303030;
+  border: 2px solid #3b3b3b;
+  background-color: #fff;
 }
 .matrix_deck_element {
   height: calc(100% - 2px);
   width: calc(100% - 2px);
   position: relative;
   vertical-align: bottom;
+  background-color: #ccc !important;
   /* vertical-align: bottom; */
 }
 
 /* state percentage info */
 .matrix_deck_element .state_digital_info {
   width: 100%;
-  color: #ffffffaa;
+  color: #121212aa;
   font-size: 16px;
   /* font-family: 'Consolas'; */
-
 }
-
 
 /* show edit logs */
 .matrix_deck_element .edit_log_box {
@@ -959,5 +997,6 @@ function formatNumber(num: number): string {
   bottom: 30px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 15px;
+  color: #121212;
 }
 </style>

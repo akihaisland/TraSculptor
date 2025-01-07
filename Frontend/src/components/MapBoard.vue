@@ -818,7 +818,7 @@ class SelectableNode extends L.CircleMarker {
       lineEditData.startNodeIdx = start_node_idx
       lineEditData.startNodePos = [startNode.lat, startNode.lon]
       now_new_line = L.polyline([[lineEditData.startNodePos[0], lineEditData.startNodePos[1]]], {
-        color: '#fff',
+        color: 'rgba(10,94,176,0.8)',
         weight: 6,
         dashArray: '5, 20'
       }).addTo(map)
