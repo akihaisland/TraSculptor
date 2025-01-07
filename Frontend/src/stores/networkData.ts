@@ -139,7 +139,7 @@ export const useNetworksData = defineStore('networksInfo', {
     matrix_element_radius: 0,
 
     // link的颜色方案
-    link_color_plan_sel: 0,
+    link_color_plan_sel: 1,
     link_color_plans: [
       [
         [255, 33, 33],
@@ -810,6 +810,10 @@ export const useNetworksData = defineStore('networksInfo', {
       } catch (error) {
         console.log('Network Data Initialization Error: ', error)
       }
+    },
+    async originNetworkCenter() {
+      const center_req = await axios.get(backend_url + '/network/center') as {data: {lat: number, lon: number}}
+      return center_req.data
     },
     linksInfoSet(network_idx: number, req_layer_links: tsLink[]) {
       const tmp_layers_links = new Array<tsLink>()

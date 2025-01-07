@@ -128,7 +128,7 @@ function handle_cond_push(e: DragEvent) {
   /* height: 100%; */
   height: 36px;
   padding: 2px;
-  background-color: #121212;
+  background-color: #dfdfdf;
   /* border-radius: 3px; */
 
   display: flex;
@@ -141,7 +141,8 @@ function handle_cond_push(e: DragEvent) {
 .sort_cond_box {
   width: 120px;
   height: 32px;
-  background-color: #353535aa;
+  background-color: #fff;
+  border: 1px solid #121212;
   border-radius: 3px;
   display: inline-block;
   margin: 2px;
@@ -196,7 +197,7 @@ function handle_cond_push(e: DragEvent) {
   width: calc(100% - 32px - 6px);
   padding: 3px;
   font-size: 10px;
-  color: #fff;
+  color: #121212;
 
   display: flex;
   flex-direction: row;

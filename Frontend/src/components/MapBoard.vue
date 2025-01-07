@@ -490,7 +490,7 @@ class PieNode extends L.Marker {
     // compute the size and style for the pie charts
     const svgString =
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">' +
-      '<circle cx="32" cy="32" r="32" fill="#8EA7FF" />' +
+      '<circle cx="32" cy="32" r="32" fill="#5CB338" />' +
       '<circle cx="32" cy="32" r="16" stroke-width="32" stroke-dasharray="' +
       100 * pie_ratio +
       ', 100" fill="transparent" stroke="#E89FF4"/>' +
@@ -1083,25 +1083,27 @@ function link_color_compute(std_val: number, linkOpacity: number) {
 
 function link_style(link_idx: number) {
   // 宽度
-  let line_weight =
-    5*Math.pow(1.5, map_zoom_ratio.value - 12) * Math.abs(6 + 4 * link_flow_ratio[link_idx])
+  // let line_weight =
+  //   5*Math.pow(1.5, map_zoom_ratio.value - 12) * Math.abs(6 + 4 * link_flow_ratio[link_idx])
+  let line_weight = 2 * Math.abs(6 + 4 * link_flow_ratio[link_idx])
   if (link_flow_ratio[link_idx] == 2 || link_flow_ratio[link_idx] == -2) {
-    line_weight = Math.pow(1.5, map_zoom_ratio.value - 12) * 6
+    // line_weight = Math.pow(1.5, map_zoom_ratio.value - 12) * 6
+    line_weight = 6
   }
   // 透明度
   let linkOpacity = 0.5
   if (menu_show.value != 6) {
     if (link_clicked.value != -1) {
       if (link_clicked.value == link_idx) {
-        if (menu_show.value == 3 || menu_show.value == 4) linkOpacity = 0.5
-        else linkOpacity = 0.8
-      } else linkOpacity = 0.2
+        if (menu_show.value == 3 || menu_show.value == 4) linkOpacity = 0.7
+        else linkOpacity = 1
+      } else linkOpacity = 0.4
     }
   } else {
     // 当到展示饼图的模式时
     if (links_if_in_show_demand.value[link_idx]) {
-      linkOpacity = 0.8
-    } else linkOpacity = 0.2
+      linkOpacity = 1
+    } else linkOpacity = 0.4
   }
 
   let line_color = 'rgba('
@@ -1116,10 +1118,9 @@ function link_style(link_idx: number) {
   } else if (link_flow_ratio[link_idx] == -2) {
     line_color = 'rgba(195,195,195,' + linkOpacity + ')'
   } else {
-    line_color =  link_color_compute(link_speed_ratio[link_idx]/2+0.5, linkOpacity)
+    line_color = link_color_compute(link_speed_ratio[link_idx] / 2 + 0.5, linkOpacity)
   }
   // console.log("link_speed_ratio[link_idx] ", link_speed_ratio[link_idx]);
-  
 
   return {
     color: line_color, //线的颜色
@@ -1129,12 +1130,13 @@ function link_style(link_idx: number) {
 }
 
 function draw_links_and_nodes() {
-  const circle_radius = 2*Math.pow(1.5, map_zoom_ratio.value - 12)
+  // const circle_radius = 2*Math.pow(1, map_zoom_ratio.value - 12)
+  const circle_radius = 2
 
   // transfer to polyline and node in lealfet
   const max_dot_flow_sum = Math.max(...dots_flow_sum)
   for (let i = 0; i < dots_pos.length; i++) {
-    const now_circle_radius_mp = (dots_flow_sum[i] / max_dot_flow_sum) * 8 + 4
+    const now_circle_radius_mp = (dots_flow_sum[i] / max_dot_flow_sum) * 2 + 4
     let nodeColor = '#0380df'
     // mark the node right-clicked
     // if (node_clicked.value == i) nodeColor = "#bfd8ff"
@@ -1144,14 +1146,16 @@ function draw_links_and_nodes() {
         radius: now_circle_radius_mp * circle_radius,
         weight: circle_radius / 2 + 2,
         color: nodeColor,
-        fillColor: '#B7B7B7',
+        // fillColor: '#B7B7B7',
+        fillColor: '#fff',
         fillOpacity: 1
       })
     )
   }
 
-  // const line_weight_mp = Math.pow(0.8, map_zoom_ratio.value - 12)
-  const line_weight_mp = 5*Math.pow(0.8, map_zoom_ratio.value - 12)
+  const line_weight_mp = 2*Math.pow(0.5, map_zoom_ratio.value - 12)
+  // const line_weight_mp = 5*Math.pow(0.8, map_zoom_ratio.value - 12)
+  // const line_weight_mp = 2
 
   for (let i = 0; i < links_pos.length; i++) {
     const now_line_weight = line_weight_mp * Math.abs(6 + 4 * link_flow_ratio[i])
@@ -1238,8 +1242,7 @@ watch(
           link_speed_ratio.push(0)
         }
       }
-    }
-    else {
+    } else {
       return
     }
 
@@ -1259,7 +1262,22 @@ watch(
   { deep: true }
 )
 // draw network on the map
-function map_show() {
+function drawThings2Map() {
+  map_zoom_ratio.value = map.getZoom()
+  // delete nodes
+  rmFormerLinesAndDots()
+  draw_links_and_nodes()
+
+  // draw assist ones
+  draw_nodes_links_from_newnode()
+  assist_new_link_edit()
+
+  // draw pies again
+  if (menu_show.value == 6) {
+    pie_auto_zoom()
+  }
+}
+function map_show(lat=0, lon=0) {
   if (map != undefined) {
     return false
   }
@@ -1271,12 +1289,12 @@ function map_show() {
   // }).setView([43.5528027552607, -96.74700008207309], 12)
   map = L.map('map', {
     doubleClickZoom: false
-  }).setView({lat: 42.34648, lng: 288.14898}, 12)
+  }).setView({lat: lat, lng: lon}, 12)
   // map.setMinZoom(12)
   map.setMaxZoom(15)
 
   // add map layer
-  var tiles = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+  var tiles = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
 
   var tileLayer = L.tileLayer(tiles, {
     attribution:
@@ -1295,21 +1313,7 @@ function map_show() {
   map.zoomControl.remove()
 
   // scale
-  map.on('zoomend', function () {
-    map_zoom_ratio.value = map.getZoom()
-    // delete nodes
-    rmFormerLinesAndDots()
-    draw_links_and_nodes()
-
-    // draw assist ones
-    draw_nodes_links_from_newnode()
-    assist_new_link_edit()
-
-    // draw pies again
-    if (menu_show.value == 6) {
-      pie_auto_zoom()
-    }
-  })
+  map.on('zoomend', drawThings2Map)
 
   map.on('mousemove', function (e) {
     // console.log(e.latlng)
@@ -1320,9 +1324,14 @@ function map_show() {
 
   return
 }
+watch(() => networkData.link_color_plan_sel, () => {
+  drawThings2Map()
+})
 
-onMounted(() => {
-  map_show()
+onMounted(async () => {
+  await networkData.networksInitialization()
+  const now_center = await networkData.originNetworkCenter()
+  map_show(now_center.lat, now_center.lon)
   // map_show(0);
 })
 
@@ -2320,10 +2329,10 @@ watch(() => networkData.networksInfoArr, () => {
       </div>
       <div class="state_box" :class="{ not_show_container: menu_show_state != 1 }">
         <div class="edit_btn" title="Cancel">
-          <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+          <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
         </div>
         <div class="edit_btn" title="Save">
-          <img src="/static/edits_btn/save.svg" alt="" srcset="" />
+          <img src="/static/edits_btn/save-white.svg" alt="" srcset="" />
         </div>
       </div>
     </div>
@@ -2337,10 +2346,10 @@ watch(() => networkData.networksInfoArr, () => {
       <div class="menu_content">
         <div class="col_btn_box">
           <div class="edit_btn" title="Cancel" @click="handleCancelNewLink()">
-            <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
           </div>
           <div class="edit_btn" title="Save" @click="save_new_road()">
-            <img src="/static/edits_btn/save.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/save-white.svg" alt="" srcset="" />
           </div>
           <div
             class="edit_btn"
@@ -2456,10 +2465,10 @@ watch(() => networkData.networksInfoArr, () => {
       <div class="menu_content">
         <div class="col_btn_box">
           <div class="edit_btn" title="Cancel" @click="show_menu_from_idx(1)">
-            <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
           </div>
           <div class="edit_btn" title="Save" @click="commit_link_edit(0)">
-            <img src="static/edits_btn/save.svg" alt="" srcset="" />
+            <img src="static/edits_btn/save-white.svg" alt="" srcset="" />
           </div>
         </div>
         <div class="menu_input_part">
@@ -2495,10 +2504,10 @@ watch(() => networkData.networksInfoArr, () => {
       <div class="menu_content">
         <div class="col_btn_box">
           <div class="edit_btn" title="Cancel" @click="show_menu_from_idx(1)">
-            <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
           </div>
           <div class="edit_btn" title="Save" @click="commit_link_edit(1)">
-            <img src="/static/edits_btn/save.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/save-white.svg" alt="" srcset="" />
           </div>
         </div>
         <div class="menu_input_part">
@@ -2537,7 +2546,7 @@ watch(() => networkData.networksInfoArr, () => {
       <div class="menu_content">
         <div class="col_btn_box">
           <div class="edit_btn" title="Cancel" @click="handleCancelNewNode(undefined)">
-            <img src="/static/edits_btn/cancel.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/cancel-white.svg" alt="" srcset="" />
           </div>
           <div
             class="edit_btn"
@@ -2547,7 +2556,7 @@ watch(() => networkData.networksInfoArr, () => {
             <img :src="switch_way_num_btn" alt="" srcset="" />
           </div>
           <div class="edit_btn" title="Save" @click="commit_node_new">
-            <img src="/static/edits_btn/save.svg" alt="" srcset="" />
+            <img src="/static/edits_btn/save-white.svg" alt="" srcset="" />
           </div>
           <div
             class="edit_btn"
@@ -2703,7 +2712,7 @@ watch(() => networkData.networksInfoArr, () => {
   width: 100px;
   height: 50px;
   border-radius: 5px;
-  background-color: #232323ee;
+  background-color: #9f9f9fee;
   box-shadow: 0 0 2px #aaa;
 }
 #link_menu.state1 {

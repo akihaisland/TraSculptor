@@ -1,11 +1,32 @@
 from Network import PyNetwork
-from flask import Flask, jsonify, request, render_template, send_file
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import copy
+import argparse
+import os
 
 app = Flask(__name__)
 CORS(app)
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Backend script.")
+    parser.add_argument(
+        "--dataset",
+        type=str,
+        default=50,
+        choices=["data", "data_EasternMassachusetts", "mini_data"],
+        help="Folder name for traffic network data.",
+    )
+    
+    args = parser.parse_args()
+
+    # Get the absolute path of the current file
+    current_file_path = os.path.abspath(__file__)
+
+    # Get the directory of the current file
+    current_directory = os.path.dirname(current_file_path)
+    
+    return os.path.join(current_directory, args.dataset)
 
 def _get_links(network_idx: int):
     """
@@ -193,6 +214,11 @@ def _update_global_links_info():
             fr_info[2] += now_fr/global_links_num[global_link_id]
 
     return
+
+@app.route('/network/center')
+def get_network_center():
+    center_node = network.get_network_center()
+    return jsonify({"lat": center_node[0], "lon": center_node[1]})
 
 @app.route('/network/del')
 def del_network_layer():
@@ -647,7 +673,8 @@ if __name__ == '__main__':
     network = PyNetwork()
     # data_path = "mini_data" # mini batch data for case study
     # data_path = "data" # SiouxFalls dataset
-    data_path = "data_EasternMassachusetts"
+    # data_path = "data_EasternMassachusetts"
+    data_path = parse_args()
 
     # Update the file paths to your data files
     network.read_node(f"{data_path}/Nodes.txt")

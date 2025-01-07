@@ -8,7 +8,7 @@ import { onMounted } from 'vue';
 const networkData = useNetworksData()
 
 onMounted(() => {
-  networkData.networksInitialization()
+  // networkData.networksInitialization()
 })
 </script>
 

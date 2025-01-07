@@ -14,6 +14,7 @@ They're all in the requirement.txt.
 flask==3.0.0
 flask_cors==4.0.0
 numpy==1.25.1
+tqdm
 ```
 
 ### Install all dependency
@@ -26,11 +27,13 @@ pip install -r requirements.txt
 ```
 case_study_dataset.zip
 SiouxFalls_dataset.zip
+EasternMassachusetts_dataset.zip
 ```
-The files can be found in the releases of the repository. Among them, `case_study_dataset.zip` is the data used for the case study in the paper, and `SiouxFalls_dataset.zip` is the data used for the user study in the paper.
+The files can be found in the releases of the repository. Among them, `case_study_dataset.zip` is the data used for the case study in the paper, `SiouxFalls_dataset.zip` is the data used for the user study in the paper, and `EasternMassachusetts_dataset.zip` is the data used for larger-scale network testing.
 
 ### File Path
-You need to unzip `case_study_dataset.zip` or `SiouxFalls_dataset.zip`, and then move all the files inside to `/Backend/data/`.
+The datasets has been included in the repository.
+If you find that the dataset is missing, please download the compressed package of the dataset (`case_study_dataset.zip`, `SiouxFalls_dataset.zip` and `EasternMassachusetts_dataset.zip`) from the release, unzip them, and then move all the folders inside to `/Backend/data/`.
 
 ## How To Run this Project
 
@@ -73,8 +76,19 @@ cd Backend
 ```
 
 #### Compile and Run for Development
+- For the small-scale case study dataset:
 ```sh
-python app.py
+python app.py --dataset mini_data
+```
+
+- For the Sioux Falls dataset used in the user study:
+```sh
+python app.py --dataset data
+```
+
+- For the larger-scale Eastern Massachusetts dataset:
+```sh
+python app.py --dataset data_EasternMassachusetts
 ```
 
 ## Contact

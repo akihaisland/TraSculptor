@@ -233,6 +233,23 @@ class PyNetwork:
                 (self.m_n_node, self.m_n_node), float('inf'))
             np.fill_diagonal(self.node_distance_matrix, 0)
 
+    def get_network_center(self):
+        """
+        Obtain the latitude and longitude of the network center point.
+        """
+        lat_sum = 0
+        lon_sum = 0
+        nodes_num = len(self.m_node)
+        for now_node in self.m_node:
+            lat_sum += now_node.lat
+            lon_sum += now_node.lon
+
+        if nodes_num != 0:
+            lat_sum /= nodes_num
+            lon_sum /= nodes_num
+
+        return lat_sum, lon_sum
+
     def read_link(self, DataPath):
         """
         Read link file
@@ -701,7 +718,7 @@ class PyNetwork:
         with open(self.output_path, 'w') as tw:
             iter_num = 0
             while NormD > self.max_ue_gap:
-                print(f"iter{iter_num}: {NormD}")
+                # print(f"iter{iter_num}: {NormD}")
                 iter_num += 1
 
                 last_now_time = nowtime
