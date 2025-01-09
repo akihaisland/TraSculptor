@@ -13,7 +13,7 @@ def parse_args():
     parser.add_argument(
         "--dataset",
         type=str,
-        default=50,
+        default="data",
         choices=["data", "data_EasternMassachusetts", "mini_data"],
         help="Folder name for traffic network data.",
     )
